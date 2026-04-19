@@ -93,26 +93,28 @@ Output of engine ps displaying tracked container metadata, including container n
 ---
 
 ### 3. Bounded-Buffer Logging
-<img width="1600" height="417" alt="image" src="https://github.com/user-attachments/assets/609187f7-e6ec-44ce-b551-bc6c665b5db0" />
-Kernel log output (engine logs / dmesg) showing hard-limit enforcement, where the memory_hog process exceeded its memory limit and was killed by the kernel (OOM kill), demonstrating memory monitoring and enforcement.
+<img width="1600" height="429" alt="image" src="https://github.com/user-attachments/assets/a164b439-c4b5-473f-a2e5-f3cccbf1bd51" />
+
+Log output demonstrating the bounded-buffer logging pipeline, where logs are continuously produced and consumed asynchronously, indicating producer–consumer behavior.
 
 ---
 
 ### 4. CLI and IPC
-<img width="1600" height="78" alt="image" src="https://github.com/user-attachments/assets/afa519e4-1284-4eee-a3fc-0fa334e1543f" />
-Starting a new container (gamma) using the engine, which launches a process (sleep) inside the container and assigns it a unique PID, demonstrating dynamic container creation under the supervisor.
+<img width="1600" height="192" alt="image" src="https://github.com/user-attachments/assets/8a4ae3e2-1475-4525-ab84-e772e6651d9c" />
+
+CLI commands issued to start a container and query its status, with the supervisor responding by creating the container and returning metadata, demonstrating command-based interaction and IPC between user-space and the supervisor.
 
 ---
 
 ### 5. Soft-limit Warning
 <img width="1600" height="390" alt="image" src="https://github.com/user-attachments/assets/9e7fc178-487e-4f45-91ab-55c345d1834c" />
-Kernel logs showing both soft-limit warning and hard-limit enforcement for container gamma, where memory usage exceeded thresholds—first triggering a warning, then killing the process—demonstrating the kernel module’s monitoring and control.
+Kernel log output showing a soft-limit warning for container gamma, where memory usage exceeded the configured soft threshold, demonstrating early warning behavior before enforcement.
 
 ---
 
 ### 6. Hard-limit Enforcement
 <img width="1600" height="334" alt="image" src="https://github.com/user-attachments/assets/ca443401-8a3f-4402-80f8-4327ac6d5102" />
-dmesg output showing the kernel module actively monitoring memory, where container gamma first exceeds the soft limit (warning logged) and then crosses the hard limit, triggering forced termination—validating memory enforcement at kernel level.
+dmesg output showing hard-limit enforcement, where container gamma exceeds its memory limit and is terminated by the kernel module, demonstrating strict memory control.
 
 ---
 
@@ -128,8 +130,7 @@ Output of workload programs (cpu_hog and io_pulse) demonstrating different syste
 
 <img width="1600" height="191" alt="image" src="https://github.com/user-attachments/assets/0c2f3007-15a4-43a5-a815-dd42d0169507" />
 
-Containers (alpha, beta, gamma) are stopped using the engine, and ps aux | grep engine confirms that only the supervisor process remains—demonstrating proper cleanup, container termination, and no leftover (zombie) processes.
-
+Containers (alpha, beta, gamma) are stopped using the engine. The ps aux | grep engine output shows no active container processes, confirming that containers were terminated successfully and no zombie processes remain.
 
 
 ## 4. Engineering Analysis
